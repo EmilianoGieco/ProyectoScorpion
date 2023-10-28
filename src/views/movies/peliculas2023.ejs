@@ -1,0 +1,80 @@
+<html>
+<!--HEAD-->
+<%- include(".././partials/headpeliculas2023") %>
+
+  <body class="bg1">
+    <!--HEADER-->
+    <%- include(".././partials/header") %>
+<main>
+      <!--MAIN-->
+      <h1 class="tituloDetalle">PELICULAS 2023</h1>
+      <!--ejemplo con bd-->
+
+      <div class="row row-cols-1 row-cols-md-2 ">
+
+        <div class="col mb-4">
+            <!-- Contenido -->
+
+            <% for(let i=0; i<peliculas.length ; i++) {%>
+
+                <!--contenido-->
+                <div class="card-body">
+
+                    <!--Titulo-->
+                    <h4 class="card-title">
+                        <%= peliculas[i].nombre %>
+                    </h4>
+
+                    <!--Contenido video-->
+                    <div class="view overlay">
+                      <div><iframe width="855" height="550" src="<%= peliculas[i].video%>" title="YouTube video player"
+                          frameborder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                          allowfullscreen></div> </iframe>
+                      <div class="mask rgba-white-slight"></div>
+
+                    <!--Texto-->
+                    <p class="card-text-r">
+                        <%=peliculas[i].critica%>
+                    </p>
+
+                    <h6> Genero:
+                        <%=peliculas[i].genero[0].nombre %>
+                    </h6>
+
+                    <h6> Actores:
+                        <% for (let j = 0; j < peliculas[i].actor.length; j++) { %>
+                            <%= peliculas[i].actor[j].nombre %>
+                            <% if (j < peliculas[i].actor.length - 1) { %>, <% } %>
+                        <% } %>
+                    </h6>
+
+                    <h6> Director:
+                        <%=peliculas[i].director[0].nombre %>
+                    </h6>
+
+                    <h6> Guionista:
+                        <%=peliculas[i].guionista[0].nombre %>
+                    </h6>
+
+                    <h6> Productora:
+                        <%=peliculas[i].productora[0].nombre %>
+                    </h6>
+
+
+                    <h6 class="card-text-e">Fecha de estreno:
+                        <%=peliculas[i].fecha_estreno%>
+                    </h6>
+      
+                </div>
+
+                <% } %>
+        </div>
+
+            </main>
+            
+            <!-- FOOTER -->
+            <%- include(".././partials/footer.ejs")%>
+  </body>
+
+</html>

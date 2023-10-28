@@ -1,0 +1,119 @@
+/*MAIN NOTICIAS DEL SLIDE*/
+.body {
+    font-family: "Poppins", sans-serif;
+  
+  }
+  
+  .bg1 {
+    background-color: #0d0d0d !important;
+  }
+  
+  .contenedorPrincipal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .descripcion {
+    text-align: left;
+    margin: 0.2rem 5rem 1rem 5rem;
+  }
+  
+  .descripcion2 {
+    text-align: left;
+    margin: 0.2rem 5rem 1rem 0rem;
+  
+  }
+  
+  .imgDetalle {
+    margin: 0.5rem 5rem 1rem 5rem;
+  }
+  
+  .titulo4 {
+    font-size: 1.5rem;
+    text-align: center;
+    line-height: 1.2;
+    padding-left: 9px;
+    text-transform: uppercase;
+    margin-top: 2em;
+    padding-bottom: 0.5em;
+    border-bottom: 0.4px solid #fa320a;
+    color: white;
+  }
+  
+  .videodeyoutube {
+    margin: 2rem 5rem 3rem 5rem;
+  
+  }
+  
+  .ficha {
+    margin: 1rem 1rem 3rem 0rem;
+    text-align: left;
+  }
+
+.fondo{
+    background-color: rgb(23, 22, 22) !important;
+  }
+
+  .titulo{
+    color:white !important;
+    text-transform: uppercase;
+  }
+
+  .titulo1{
+    color:white !important;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+  }
+
+  .resumen{
+    color:white !important;
+    font-size: 1.1rem;
+    
+  }
+
+  .duracion{
+    color:white !important;
+  }
+
+  .estreno{
+    color:white !important;
+  }
+
+  .calificacion{
+    color:white !important;
+  }
+
+  .genero{
+    color:white !important;
+  }
+ 
+  /*ESTRELLAS DE PUNTUACION*/
+ #form {
+  width: 250px;
+  margin: 0 auto;
+  height: 50px;
+}
+
+#form p {
+  text-align: center;
+}
+
+#form label {
+  font-size: 20px;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+label {
+  color: grey;
+}
+
+.clasificacion {
+  direction: rtl;
+  unicode-bidi: bidi-override;
+  text-align: left;
+  font-size: 30px
+}

@@ -1,0 +1,113 @@
+<!--HEAD-->
+<%- include("./partials/head") %>
+
+
+  <body class="bgPrincipal">
+    <%- include("./partials/header") %>
+
+
+      <!--MAIN-->
+
+      <main>
+
+        <div class="button-container">
+          <!-- Cambio de estilo de boton -->
+          <% console.log("isLogged:", locals.isLogged); %>
+            <% console.log("userLogged:", locals.userLogged); %>
+              <% if (locals.isLogged && locals.userLogged && locals.userLogged.administrador===1) { %>
+                <a class="ADMIN" aria-current="page" href="/peliculas/CrearFilm">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  CREAR FILM
+                </a>
+                <% } %>
+        </div>
+        <!--final boton-->
+
+
+
+
+        </div>
+
+        <img class="baner" src="https://abisulkes.alwaysdata.net/banerPrincipal11.jpg">
+        <h2 class="titulo2">5 peliculas mas esperadas 2023</h2>
+
+        <div class="carrucelcentral">
+          <div id="carouselExampleCaptions" class="carousel slide">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+                aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+                aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+                aria-label="Slide 3"></button>
+              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3"
+                aria-label="Slide 4"></button>
+              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4"
+                aria-label="Slide 0"></button>
+            </div>
+            <div class="carousel-inner">
+
+
+
+              <% for(let i=0; i < peliculasSlide.length ; i++) {%>
+                <div class="carousel-item <%if (i === 0) { %> active <% } %>">
+                  <img src=<%=peliculasSlide[i].imagen2 %> class="d-block w-100"
+                  alt="<%= peliculasSlide[i].titulo %>">
+                    <div class="texto">
+                      <a href="/peliculas/detalleNoticia/<%=peliculasSlide[i].id%>" class="textoenlasimagenes">
+                        <%= peliculasSlide[i].titulo %>
+                      </a>
+                    </div>
+                    <div class="carousel-caption d-none d-md-block">
+
+                    </div>
+                </div>
+                <% } %>
+
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+              data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+              data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
+        <!--final de slide -->
+
+        <!-- Código para mostrar las películas en la lista de novedades -->
+        <h2 class="titulo4">Mirá las últimas novedades</h2>
+        <div class="peliculas-container">
+          <% for (let i=0; i < movie.length; i++) { %>
+            <div class="pelicula">
+              <img class="imagen" src="<%= movie[i].imagen1 %>" width="400px" height="230px">
+              <div class="textoPeliculas">
+                <a href="/peliculas/detalle/<%=movie[i].id%>" class="textoenlasimagenes">
+                  <%= movie[i].nombre %>
+                </a>
+              </div>
+            </div>
+            <% } %>
+        </div>
+        
+        <div class="baner1">
+          <a href="https://www.disneyplus.com/" target="_blank">
+            <img src="https://abisulkes.alwaysdata.net/banner-publicitario-cinetips.png" alt="Banner publicitario">
+          </a>
+        </div>
+
+      </main>
+      <!--FOOTER-->
+      <%- include("./partials/footer") %>
+  </body>
+
+
+
+  </html>

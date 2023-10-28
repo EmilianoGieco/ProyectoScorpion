@@ -1,0 +1,115 @@
+<html>
+    <!--HEAD-->
+    <%- include("../partials/headDetallePelicula") %>
+  
+      <body class="bg1">
+        <%- include("../partials/header") %>
+
+        <main class="container">
+          <form id="formu" action="/peliculas/actualizarFilm/<%= movie.id %>?_method=PUT" method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
+            <!-- Agregar el div para el mensaje de validación -->
+            
+                <div class="form-row">
+                  <div class="col-md-4 mb-3">
+                    <label class="tituloActualizacion" for="nombre">Titulo película</label>
+                    <input type="text" class="form-control" id="nombre" placeholder="nombre" name="nombre" required value="<%= movie.nombre %>">>
+                    <div class="valid-feedback">
+                      ¡Se ve bien!
+                    </div>
+                  </div>
+      
+                  <div  class="col-md-4 mb-3">
+                    <label class="tituloActualizacion" for="imagen1">Imagen</label>
+                    <input type="file" class="form-control" id="imagen1" placeholder="imagen" name="imagen" required value="<%= movie.imagen1 %>">>
+                    <div class="valid-feedback">
+                      ¡Se ve bien!
+                    </div>
+                  </div>
+      
+                  <div class="col-md-4 mb-3">
+                    <label class="tituloActualizacion" for="descripcion">Sinopsis</label>
+                    <input type="text" class="form-control" id="resumen" placeholder="resumen" name="resumen" required value="<%= movie.resumen %>">>
+                    <div class="valid-feedback">
+                      ¡Se ve bien!
+                    </div>
+                  </div>
+      
+                  <div class="col-md-4 mb-3">
+                    <label class="tituloActualizacion" for="descripcion">Fecha de estreno</label>
+                    <input type="date" class="form-control" id="fecha_estreno" placeholder="fecha_estreno"
+                      name="fecha_estreno" required value="<%= movie.fecha_estreno %>">>
+                    <div class="valid-feedback">
+                      ¡Se ve bien!
+                    </div>
+                  </div>
+      
+                  <div class="col-md-4 mb-3">
+                    <label class="tituloActualizacion" for="descripcion">Duración</label>
+                    <input type="text" class="form-control" id="duracion" placeholder="duración" name="duracion" required value="<%= movie.duracion %>">>
+                    <div class="valid-feedback">
+                      ¡Se ve bien!
+                    </div>
+                  </div>
+      
+                
+      
+                  <div class="col-md-4 mb-3">
+                    <label class="tituloActualizacion" for="video">Enlace de Video</label>
+                    <input type="text" class="form-control" id="video" placeholder="video" name="video" required value="<%= movie.video %>">>
+                    <div class="valid-feedback">
+                    </div>
+                  </div>
+                </div>
+      
+                
+      
+                <div class="col-md-4 mb-3">
+                  <label class="tituloActualizacion" for="inputGroupSelect01">Género</label>
+                  <select class="form-control" id="inputGroupSelect01" name="genero" required value="<%= movie.genero %>">>
+                    <option selected disabled>selecciona un género</option>
+                    <% for (let i=0; i<generos.length; i++) {%>
+                      <option value="<%=generos[i].id%>">
+                        <%=generos[i].nombre%>
+                      </option>
+                      <%} %>
+                  </select>
+                </div>
+                </div>
+                 
+
+
+                <button class="btn btn-secondary boton" type="submit">Actualizar</button>
+              
+              </form>
+           
+        </main>
+        
+             <script src="/js/actualizarFilm.js"></script>
+              <script>
+              // Example starter JavaScript for disabling form submissions if there are invalid fields
+              (function() {
+                'use strict';
+                window.addEventListener('load', function() {
+                  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                  var forms = document.getElementsByClassName('needs-validation');
+                  // Loop over them and prevent submission
+                  var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                      if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                      }
+                      form.classList.add('was-validated');
+                    }, false);
+                  });
+                }, false);
+                
+              })();
+              </script>
+        
+          </main>
+
+  <!--FOOTER-->
+  <%- include("../partials/footer") %>
+  </body>
+</html>

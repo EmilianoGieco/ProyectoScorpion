@@ -1,0 +1,287 @@
+[
+ {
+  "id": 1,
+  "nombre": "Usuario 1",
+  "email": "usuario1@example.com",
+  "password": "contraseña1",
+  "nombreUsuario": "Usuario 1",
+  "imagen": "https://example.com/usuario1.jpg"
+ },
+ {
+  "id": 2,
+  "nombre": "Usuario 2",
+  "email": "usuario2@example.com",
+  "password": "contraseña2",
+  "nombreUsuario": "Usuario 2",
+  "imagen": "https://example.com/usuario2.jpg"
+ },
+ {
+  "id": 3,
+  "nombre": "Usuario 3",
+  "email": "usuario3@example.com",
+  "password": "contraseña3",
+  "nombreUsuario": "Usuario 3",
+  "imagen": "https://example.com/usuario3.jpg"
+ },
+ {
+  "id": 4,
+  "nombre": "Usuario 4",
+  "email": "usuario4@example.com",
+  "password": "contraseña4",
+  "nombreUsuario": "Usuario 4",
+  "imagen": "https://example.com/usuario4.jpg"
+ },
+ {
+  "id": 5,
+  "nombre": "Usuario 5",
+  "email": "usuario5@example.com",
+  "password": "contraseña5",
+  "nombreUsuario": "Usuario 5",
+  "imagen": "https://example.com/usuario5.jpg"
+ },
+ {
+  "id": 6,
+  "email": "abigailsulkes@hotmail.com",
+  "password": "abita",
+  "passwordD": "abita",
+  "nombreUsuario": "abita22",
+  "terminos": "on"
+ },
+ {
+  "id": 7,
+  "email": "mario55@gmail.com",
+  "password": "marito55",
+  "passwordD": "marito55",
+  "nombreUsuario": "marianaso",
+  "terminos": "on",
+  "imagen": "1691607565686.jpg"
+ },
+ {
+  "id": 8,
+  "email": "mariamarta@gmail.com",
+  "password": "$2a$10$3/4mqHewwoAKp6L3KWcdfeTRPJScuyhdjpPudfnmuBg/qjme1cLZy",
+  "passwordD": "marilucha",
+  "nombreUsuario": "gggg",
+  "terminos": "on",
+  "imagen": "1691608370636.jpg"
+ },
+ {
+  "id": 9,
+  "email": "mariamarta@gmail.com",
+  "password": "$2a$10$2FnEOMa1rz2fw8GCM.cLP.U2L2PHEB/zRtXng.0lQYVN8dOwnhA3K",
+  "passwordD": "$2a$10$Vx35XjnDIPueJSWcoc2pnupttk1WFmzvfbneLcVsQc7KjmfkE8nxu",
+  "nombreUsuario": "gggg",
+  "terminos": "on",
+  "imagen": "1691608469504.jpg"
+ },
+ {
+  "id": 10,
+  "email": "pipia@gmail.com",
+  "password": "$2a$10$sFHi1QXsfqxUricPCotF..m/uBpSaKsC0gRgXyJwO8QLV1YPuKOGW",
+  "passwordD": "marilucha",
+  "nombreUsuario": "gggg",
+  "terminos": "on",
+  "imagen": "1691608503801.jpg"
+ },
+ {
+  "id": 11,
+  "email": "tototo@gmail.com",
+  "password": "$2a$10$rRLn7gEZke8K1b/6JH9/x.GYGgXnCsPgAQPWUndrfEqyg/nJUd2v6",
+  "passwordD": "$2a$10$imRlNcgnGDydRRlkQ3BoBOsdYxm5ywezMkoQJqF3V9MEkSU0hXpba",
+  "nombreUsuario": "gggg",
+  "terminos": "on",
+  "imagen": "1691608533899.jpg"
+ },
+ {
+  "id": 12,
+  "email": "emiliano_jobs@hotmail.com",
+  "password": "$2a$10$g5XYOlcDgeRoSclVuLJhcOgIJnHdvcVYdc50unGGwIni7r7WUNbfq",
+  "passwordD": "$2a$10$Jivi2gDk6ZVrNX7HRI1UGOaxJJRBUQROvVDQBYJrrBJ7bpnUXbEnW",
+  "nombreUsuario": "NEaL",
+  "terminos": "on",
+  "imagen": "1691609967826.jpg"
+ },
+ {
+  "id": 13,
+  "email": "sulkesabi@hotmail.com",
+  "password": "$2a$10$YCSsMyXFiPdAxD1is6IeYOUuRDRiB.UADiLUswsjUNwftjXJxTMtO",
+  "passwordD": "$2a$10$eOUJx0pZx39GXEQxdaZyKusX8r4T.vYglusSdsaMxL7TF1Hh1XSAq",
+  "nombreUsuario": "gggg",
+  "terminos": "on",
+  "imagen": "1691610275405.jpg"
+ },
+ {
+  "id": 14,
+  "email": "papa@hotmail.com",
+  "password": "$2a$10$/yNfa0dYYaIR/VYinTLppuTRLJ9DVzanKoA44OiIfFVREJuRsFRla",
+  "passwordD": "$2a$10$qi5G/EMYqp1t5McZC6uaCuz/RS105UOSRBHHrmKdfKB.VYYYq3MMS",
+  "nombreUsuario": "gggg",
+  "terminos": "on",
+  "imagen": "1691610320217.jpg"
+ },
+ {
+  "id": 15,
+  "email": "tuwqui@hotmail.com",
+  "password": "$2a$10$aw2gW/EJFjG0WRzy0ZQWCOdwJlqeznhE5JB72cVHGuCsc4AH/o7a.",
+  "passwordD": "$2a$10$wlTDUb1If/o4ZEf3OKvGlejWpBwmcuBnOYTPOQq8VX/K0iQf.GiXu",
+  "nombreUsuario": "gggg",
+  "terminos": "on",
+  "imagen": "1691610387372.jpg"
+ },
+ {
+  "id": 16,
+  "email": "pablo50@gmail.com",
+  "password": "$2a$10$hT5CpOIjdO52XI.L8rVl9OyPsNmECPzU345V7hMPDKiQsQ99KOMb.",
+  "passwordD": "pablito50",
+  "nombreUsuario": "pablo",
+  "terminos": "on",
+  "imagen": "1691676876246.jpg"
+ },
+ {
+  "id": 17,
+  "email": "juan10@gmail.com",
+  "password": "$2a$10$I9ZV890ueX5gSxhhJ7ThmuU.e/pivqp9ajdnFg9bIhiz2D7L7mzze",
+  "passwordD": "hola123",
+  "nombreUsuario": "gggg",
+  "terminos": "on",
+  "imagen": "1691684112069.jpg"
+ },
+ {
+  "id": 18,
+  "email": "agustina22@gmail.com",
+  "password": "$2a$10$CLkkYs4GkSZCF0Z8JJPgtOeECd39fvOqf8DZXMYAsn0tcZ3Lr3K0K",
+  "nombreUsuario": "gggg",
+  "terminos": "on",
+  "imagen": "1691684365752.jpg"
+ },
+ {
+  "id": 19,
+  "email": "juana22@gmail.com",
+  "password": "$2a$10$ixi1qvqrvU1A3tiPPh9IoO7jNZdq83zaf0onSo0ymNLuqJ0y0IZ6K",
+  "nombreUsuario": "gggg",
+  "terminos": "on",
+  "imagen": "1691686315416.jpg"
+ },
+ {
+  "id": 20,
+  "email": "pablo12@gmail.com",
+  "password": "$2a$10$kvFXcX5lEaCr1j3lL8OZEeGhRKyGi4bmUsFLV/HuycbmPaPAL9fj6",
+  "nombreUsuario": "gggg",
+  "terminos": "on",
+  "imagen": "1691689947027.jpg"
+ },
+ {
+  "id": 21,
+  "email": "hola123@gmail.com",
+  "password": "$2a$10$tam2gIibUWqMJk5p1g7L8OFWJVpq9ihlE1/R6dWGke.5SYaWyeqNS",
+  "nombreUsuario": "gggg",
+  "terminos": "on",
+  "imagen": "1691691573314.jpg"
+ },
+ {
+  "id": 22,
+  "email": "juegosps3@hotmail.com",
+  "password": "$2a$10$uHABDXouKeLps3iw3DYN6uEuEDKYuR1ElB63jwTxRO68sVz3m.kuq",
+  "nombreUsuario": "NEaL",
+  "terminos": "on",
+  "imagen": "1691719304503.jpg"
+ },
+ {
+  "id": 23,
+  "email": "sdf@hotmail.com",
+  "password": "$2a$10$.u.Zc4Bgd9pfOm3AF/DpEO9I2a6wdE.kK7ewpHBkrJZLI/zBhvtdq",
+  "nombreUsuario": "NEaL",
+  "terminos": "on",
+  "imagen": "1693083657572.jpg"
+ },
+ {
+  "id": 24,
+  "email": "tertet@hotmail.com",
+  "password": "$2a$10$JqADGmVa1wrmS0eJzgEbjuOgP7RuBOIA2iR7EeOj784zDr/MC/V8u",
+  "nombreUsuario": "NEaL",
+  "terminos": "on"
+ },
+ {
+  "id": 25,
+  "email": "hyhyhy@hotmail.com",
+  "password": "$2a$10$J1XwH2RpHkZKUO1YFb5Rxe8.wbuUktt4NwCyXmk1aA.GYVnKXV8Xi",
+  "nombreUsuario": "NEaL",
+  "terminos": "on"
+ },
+ {
+  "id": 26,
+  "email": "tutut@hotmail.com",
+  "password": "$2a$10$qd7F/4MdvOl20o1w/SH8V.e62YMCteZwd4L.UjNf.4qpcR1F4mH2i",
+  "nombreUsuario": "NEaL",
+  "imagen": "https://res.cloudinary.com/dlimugyad/image/upload/v1693163007/gzlfks596vbcej0zqhge.jpg",
+  "terminos": "on"
+ },
+ {
+  "id": 27,
+  "email": "rhrhh@hotmail.com",
+  "password": "$2a$10$HKMUC4TDGh58bLHRjcloAuRtFStxV7.LtQsINSjqjZTG2DFvp2Dp2",
+  "nombreUsuario": "NEaL",
+  "terminos": "on",
+  "imagen": {
+   "url": "http://res.cloudinary.com/dlimugyad/image/upload/v1693172357/gpwofh4xnu19ongbq9ho.jpg",
+   "public_id": "gpwofh4xnu19ongbq9ho"
+  }
+ },
+ {
+  "id": 28,
+  "email": "wfwrtrrr@hotmail.com",
+  "password": "$2a$10$HiBG8qjqQWL470UNT5/41ekdhRYTP8Cotug6IpEOYT9xhiQaRh.O6",
+  "nombreUsuario": "NEaL",
+  "terminos": "on",
+  "imagen": {
+   "url": "http://res.cloudinary.com/dlimugyad/image/upload/v1693172533/l8bvgabthsrgbimbsvaa.jpg"
+  }
+ },
+ {
+  "id": 29,
+  "email": "fgjfgj@hotmail.com",
+  "password": "$2a$10$zjWFSLkD.c8j9R8DVSDRcum1LtR6/C8.aWJlgssB2pGGabGR8IlNC",
+  "nombreUsuario": "NEaL",
+  "terminos": "on",
+  "imagen": {
+   "result": {
+    "asset_id": "9d7610bc644437d8b38a00a812fafcf0",
+    "public_id": "lfvbm1cjrqpuweqdc5ov",
+    "version": 1693172612,
+    "version_id": "3a6180310301507e01e62ea28132e7d7",
+    "signature": "3190d631123531b051753e9a7bba60f947ba3f88",
+    "width": 640,
+    "height": 360,
+    "format": "jpg",
+    "resource_type": "image",
+    "created_at": "2023-08-27T21:43:32Z",
+    "tags": [],
+    "bytes": 15451,
+    "type": "upload",
+    "etag": "3ab134f179f586458daf4cd8351d3024",
+    "placeholder": false,
+    "url": "http://res.cloudinary.com/dlimugyad/image/upload/v1693172612/lfvbm1cjrqpuweqdc5ov.jpg",
+    "secure_url": "https://res.cloudinary.com/dlimugyad/image/upload/v1693172612/lfvbm1cjrqpuweqdc5ov.jpg",
+    "folder": "",
+    "original_filename": "file",
+    "api_key": "232418438234228"
+   }
+  }
+ },
+ {
+  "id": 30,
+  "email": "cxvxcvxcv@hotmail.com",
+  "password": "$2a$10$2E29fjAZ0V0wbgkcop1Ifum8YfrU4S1cfNIma3BPJuXZMPeuiQD2m",
+  "nombreUsuario": "NEaL",
+  "terminos": "on",
+  "imagen": "https://res.cloudinary.com/dlimugyad/image/upload/v1693172760/ebbiyurec3zrijmz2usf.jpg"
+ },
+ {
+  "id": 31,
+  "email": "jorge@gmail.com",
+  "password": "$2a$10$MRcllNa2cWgZuWsINM2Heu93QXR0bUXW7TNw/.Zwi9On.hnpiZuwq",
+  "nombreUsuario": "gggg",
+  "terminos": "on",
+  "imagen": "https://res.cloudinary.com/dlimugyad/image/upload/v1693858200/zpvopq4umq7h47szotcr.jpg"
+ }
+]

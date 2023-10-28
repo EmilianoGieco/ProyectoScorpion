@@ -1,0 +1,522 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  height: 100vh;
+
+}
+
+.bgPrincipal {
+  background-color: #0d0d0d !important;
+}
+
+/*ANIMACION EN BANNER PRINCIPAL*/
+@keyframes opacidad {
+  0% {
+    opacity: 0.2;
+  }
+
+  50% {
+    opacity: 0.7;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.baner {
+  animation-name: opacidad;
+  animation-duration: 1200ms;
+  animation-iteration-count: initial;
+  animation-direction: normal;
+}
+
+/*MENU LOGO*/
+.logoPrincipal {
+  width: 55%;
+  height: auto;
+}
+
+/*MENU ICONO COLOR*/
+.btn-secondary {
+  background-color: #d1232a !important;
+
+}
+
+.dropdown-item:hover {
+  background-color: gray !important;
+  /*opacity: 0.6;*/
+}
+
+.color {
+  color: black;
+  text-decoration: none;
+  margin: 1em;
+}
+
+.navbar-nav .nav-link.active {
+  color: white !important;
+}
+
+.nav-link,
+.dropdown-toggle {
+  color: white !important;
+}
+
+.textoDelEncabezado {
+  color: #d1232a;
+  padding: 5px 0;
+  font-size: 17px;
+  text-decoration: none;
+}
+
+.aviso {
+  color: #d1232a;
+}
+
+/*MENU FONDO DEL DESPLEGADO*/
+.dropdown-menu,
+.bgColor {
+  background-color: black !important;
+  opacity: 0.7;
+}
+
+li:hover {
+  background-color: gray !important;
+
+}
+
+.dropdown-item,
+.color {
+  color: white !important;
+}
+
+/*TUTULOS PRINCIPALES*/
+.titulo2 {
+  font-size: 1.5rem;
+  line-height: 1.2;
+  padding-left: 9px;
+  text-transform: uppercase;
+  margin: 2em 1em 1em 1em;
+  border-left: 3px solid #fa320a;
+  color: white;
+}
+
+.titulo3 {
+  font-size: 1.5rem;
+  line-height: 1.2;
+  padding-left: 9px;
+  text-transform: uppercase;
+  margin: 2em 1em 0em 1em;
+  border-left: 3px solid #fa320a;
+  color: white;
+}
+
+.tituloSecundario {
+  font-size: 1rem;
+  text-align: left;
+  line-height: 1.2;
+  padding-left: 9px;
+  text-transform: uppercase;
+  margin: 2em 1em 1em 1em;
+  color: #ececec;
+}
+
+/*SLIDER*/
+.slider {
+  position: relative;
+  width: 100%;
+  display: flex;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+}
+
+.slide {
+  position: relative;
+  display: inline-block;
+
+}
+
+.slider-img {
+  height: 220px;
+  width: auto;
+  object-fit: cover;
+  scroll-snap-align: center;
+}
+
+/*.d-block,
+.w-100 {
+  Clip-path: inset(20px 0px 100px 0px);
+}*/
+
+/*TITULOS EN EL SLIDE*/
+.textoenlasimagenes {
+  text-decoration: none;
+  color: white;
+}
+
+.texto {
+  font-size: 20px;
+  text-transform: uppercase;
+  border-left: 3px solid #fa320a;
+  position: absolute;
+  top: 70%;
+  left: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 1em;
+}
+
+.texto:hover {
+  border-left: 3px solid white;
+  background-color: rgba(255, 0, 0, 0.5);
+}
+
+/*TITULOS EN LAS PELICULAS*/
+.textoPeliculas{
+  font-size: 16px;
+  text-transform: uppercase;
+  border-left: 3px solid #fa320a;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 0.7em;
+  letter-spacing: 1px;
+}
+
+.textoPeliculas:hover {
+  border-left: 3px solid white;
+  background-color: rgba(255, 0, 0, 0.5);
+}
+
+.baner {
+  width: 100%;
+  height: auto;
+}
+
+.baner1{
+  width: 100%;
+  height: auto;
+  text-align: center; 
+}
+
+/*NOVEDADES*/
+/* CSS */
+.peliculas-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.pelicula {
+  flex: 0 0 calc(20% - 10px);
+  /* Ajusta el ancho de cada película según tus necesidades */
+  margin-bottom: 20px;
+  margin-top: 20px;
+  border-radius: 2%;
+}
+
+.titulo4 {
+  font-size: 1.5rem;
+  text-align: center;
+  line-height: 1.2;
+  padding-left: 9px;
+  text-transform: uppercase;
+  margin-top: 2em;
+  padding-bottom: 0.5em;
+  border-bottom: 0.4px solid #fa320a;
+  color: white;
+
+}
+
+.bajada {
+  margin-top: 10px;
+  text-align: left !important;
+  color: white;
+  text-transform: uppercase;
+}
+
+
+/*MAIN NOTICIAS*/
+.contenedor {
+  display: table-cell;
+  padding: 0.2rem 1rem 3rem 1rem;
+  text-align: center;
+}
+
+.img444 {
+  width: 100%;
+  height: auto;
+  border-radius: 2rem;
+}
+
+.contenido:hover {
+  filter: grayscale(80%);
+}
+
+.contenido {
+  margin: 1rem 1rem 1rem 1rem;
+}
+
+/*FOOTER*/
+.fondo-color {
+  background-color: black;
+}
+
+.tipografia {
+  color: #ececec;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh; /*altura según sea necesario */
+}
+
+.ADMIN {
+  position: relative;
+  display: inline-block;
+  padding: 25px 30px;
+  margin: 40px 0;
+  color: red;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: 0.5s;
+  letter-spacing: 4px;
+  overflow: hidden;
+  margin-right: 50px;
+  font-size: 18px;
+}
+
+.ADMIN:hover {
+  background: red;
+  color: white;
+  box-shadow: 0 0 5px red,
+    0 0 25px red,
+    0 0 50px red,
+    0 0 200px red;
+  -webkit-box-reflect: below 0.8px linear-gradient(transparent, #0005);
+}
+
+.ADMIN span {
+  position: absolute;
+  display: block;
+}
+
+.ADMIN span:nth-child(1) {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, red);
+  animation: animate1 1s linear infinite;
+}
+
+@keyframes animate1 {
+  0% {
+    left: -100%;
+  }
+  50%,
+  100% {
+    left: 100%;
+  }
+}
+
+.ADMIN span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, red);
+  animation: animate2 1s linear infinite;
+  animation-delay: 0.25s;
+}
+
+@keyframes animate2 {
+  0% {
+    top: -100%;
+  }
+  50%,
+  100% {
+    top: 100%;
+  }
+}
+
+.ADMIN span:nth-child(3) {
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, red);
+  animation: animate3 1s linear infinite;
+  animation-delay: 0.50s;
+}
+
+@keyframes animate3 {
+  0% {
+    right: -100%;
+  }
+
+  50%,
+  100% {
+    right: 100%;
+  }
+}
+
+.ADMIN span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, red);
+  animation: animate4 1s linear infinite;
+  animation-delay: 0.75s;
+}
+
+@keyframes animate4 {
+  0% {
+    bottom: -100%;
+  }
+
+  50%,
+  100% {
+    bottom: 100%;
+  }
+}
+
+
+
+/*RESPONSIVE DESKTOP*/
+@media only screen and (max-width: 1780px) and (min-width: 1300px) {
+  .baner {
+    width: 100%;
+    height: auto;
+  }
+
+  .carrucelcentral {
+    width: 100%;
+  }
+}
+
+/* RESPONSIVE TABLET */
+@media only screen and (max-width: 1300px) and (min-width: 630px) {
+  /* Ajustes para las imágenes */
+  .img444 {
+    width: 100%;
+    height: auto;
+  }
+
+  /* Cambiar color de fondo y bordes del botón del navbar-toggler */
+  .navbar-toggler {
+    background-color: #343a40; /* Gris oscuro */
+    border: 1px solid #343a40; /* Borde gris oscuro */
+  }
+
+  /* Ajustes para el contenedor principal */
+  .contenedor {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 0.2rem 1rem 1rem 1rem;
+  }
+
+  /* Ajustes para el tamaño del título secundario */
+  .tituloSecundario {
+    font-size: 1.5rem;
+    line-height: 1.2;
+  }
+
+  /* Ajustes para las secciones desplegables */
+  .navbar-nav {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+
+
+/*ANIMACION*/
+@keyframes opacidad {
+  0% {
+    opacity: 0.2;
+  }
+
+  50% {
+    opacity: 0.7;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.baner {
+  animation-name: opacidad;
+  animation-duration: 1200ms;
+  animation-iteration-count: initial;
+  animation-direction: normal;
+}
+
+/* RESPONSIVE MOBILE */
+@media only screen and (max-width: 630px) and (min-width: 270px) {
+  /* Hacer el banner responsive */
+  .baner {
+    width: 100%;
+    height: auto;
+  }
+
+
+  /* Ajustes para el carrusel central */
+  .carrucelcentral {
+    width: 100%;
+  }
+
+  /* Ajustes para las imágenes */
+  .img444 {
+    width: 100%;
+    height: auto;
+  }
+
+  /* Cambiar color de fondo y bordes del botón del navbar-toggler */
+  .navbar-toggler {
+    background-color: #343a40; /* Gris oscuro */
+    border: 1px solid #343a40; /* Borde gris oscuro */
+  }
+
+  /* Ajustes para el contenedor principal */
+  .contenedor {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 0.2rem 1rem 1rem 1rem;
+  }
+
+  /* Ajustes para el tamaño del título secundario */
+  .tituloSecundario {
+    font-size: 1.2rem;
+    line-height: 1.2;
+  }
+
+  /* Ajustes para las secciones desplegables */
+  .navbar-nav {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.cuadrado{
+  width: 90px; 
+  height: 100px;
+}
+
+.logo-container {
+  background-color: #212529;
+  width: 45px;
+  height: 47px;
+  border-radius: 100%;
+}
+
