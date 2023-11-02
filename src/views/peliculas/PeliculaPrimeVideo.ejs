@@ -7,21 +7,21 @@
 
             <main>
                 <!--EJS-->
-                <h1 class="titulo4">Noticias</h1>
+                <h1 class="titulo4">peliculas Prime Video</h1>
 
                 <div class="row row-cols-1 row-cols-md-3">
-                    <% for (let i=0; i < noticias.length; i++) { %>
+                    <% for (let i=0; i < peliculasPrimeVideo.length; i++) { %>
                         <div class="col mb-4">
                             <div class="card-body">
                                 <div class="peliculas-container">
                                     <div class="pelicula">
-                                        <a href="./noticias/detalle/<%=noticias[i].id%>">
-                                            <img class="imagen" src="<%= noticias[i].imagen1 %>"
-                                                alt="<%= noticias[i].nombre %>" width="470px">
+                                        <a href="./peliculasPrimeVideo/detalle/<%=peliculasPrimeVideo[i].id%>">
+                                            <img class="imagen" src="<%= peliculasPrimeVideo[i].imagen1 %>"
+                                                alt="<%= peliculasPrimeVideo[i].nombre %>" width="470px">
                                         </a>
                                         <div class="textoPeliculas">
-                                            <a href="./noticias/detalle/<%=noticias[i].id%>" class="textoenlasimagenes">
-                                              <%= noticias[i].nombre %>
+                                            <a href="./peliculasPrimeVideo/detalle/<%=peliculasPrimeVideo[i].id%>" class="textoenlasimagenes">
+                                              <%= peliculasPrimeVideo[i].nombre %>
                                             </a>
                                           </div>
                                     </div>

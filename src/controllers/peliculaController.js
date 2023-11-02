@@ -27,7 +27,12 @@ const controlador = {
 
       // Obtener detalles de la película
       const movie = await db.productoFilm.findByPk(peliculaId, {
-        include: [{ association: "genero" }]
+        include:  [
+                { association: "genero" },
+                { association: "plataforma" },
+                { association: "tipo" }
+                // Agrega más asociaciones si es necesario
+            ]
       });
 
       
@@ -140,20 +145,43 @@ const controlador = {
                 imagen1: result.secure_url,
                 resumen: req.body.resumen,
                 fecha_estreno: req.body.fecha_estreno,
+                fecha_creacion: req.body.fecha_creacion,
                 calificacion: req.body.calificacion,
                 video: req.body.video,
                 subidoPor: req.body.usuario,
                 duracion: req.body.duracion,
             })
             .then((movie) => {
-                // Crear la asociación con el género a través de generoFilm
+                // Crear asociación con el género a través de generoFilm
                 db.generoFilm.create({
                     id_productoFilm: movie.id,
                     id_genero: req.body.genero
                 })
                 .then(() => {
-                    console.log('Película y asociación con género guardadas con éxito');
-                    res.redirect("/");
+                    // Crear asociación con la plataforma a través de plataformaFilm
+                    db.plataformaFilm.create({
+                        id_productoFilm: movie.id,
+                        id_plataforma: req.body.plataforma
+                    })
+                    .then(() => {
+                        // Crear asociación con el tipo a través de tipoFilm
+                        db.tipoFilm.create({
+                            id_productoFilm: movie.id,
+                            id_tipo: req.body.tipo
+                        })
+                        .then(() => {
+                            console.log('Película y asociaciones guardadas con éxito');
+                            res.redirect("/");
+                        })
+                        .catch((error) => {
+                            console.error('Error al crear la asociación con tipo:', error);
+                            res.redirect("/");
+                        });
+                    })
+                    .catch((error) => {
+                        console.error('Error al crear la asociación con plataforma:', error);
+                        res.redirect("/");
+                    });
                 })
                 .catch((error) => {
                     console.error('Error al crear la asociación con género:', error);
@@ -169,89 +197,127 @@ const controlador = {
     streamifier.createReadStream(imageBuffer).pipe(stream);
 },
 
-  getCrearFilm: function (req, res) {
-    db.genero.findAll()
-      .then(function (generos) {
-        return res.render("./user/CrearFilm", { generos: generos })
-      });
-  },
+getCrearFilm: function (req, res) {
+  Promise.all([
+      db.genero.findAll(),
+      db.tipo.findAll(),
+      db.plataforma.findAll()
+  ])
+  .then(function ([generos, tipos, plataformas]) {
+      return res.render("./user/CrearFilm", { generos: generos, tipos: tipos, plataformas: plataformas });
+  })
+  .catch(error => {
+      console.error('Error:', error);
+      res.status(500).send('Internal Server Error');
+  });
+},
 
-  getActualizarFilm: async function (req, res) {
-    const idM = req.params.id;
-    try {
+getActualizarFilm: async function (req, res) {
+  const idM = req.params.id;
+  try {
       const movie = await db.productoFilm.findByPk(idM);
-      if (movie) {
-        const generos = await db.genero.findAll();
-        return res.render("./user/actualizarFilm", { movie: movie, generos: generos });
-      } else {
 
-        res.send('Película no encontrada');
+      if (movie) {
+          const generos = await db.genero.findAll();
+          const plataformas = await db.plataforma.findAll(); 
+          const tipos = await db.tipo.findAll(); 
+
+          return res.render("./user/actualizarFilm", {
+              movie: movie,
+              generos: generos,
+              plataformas: plataformas, 
+              tipos: tipos 
+          });
+      } else {
+          res.send('Película no encontrada');
       }
-    } catch (error) {
+  } catch (error) {
       console.error('Error en getActualizarFilm:', error);
       res.render('error', { message: 'Error al cargar la página' });
-    }
-  },
+  }
+},
 
-  postActualizarFilm: async function (req, res) {
-    const idM = req.params.id;
+postActualizarFilm: async function (req, res) {
+  const idM = req.params.id;
 
-    try {
+  try {
       const movie = await db.productoFilm.findByPk(idM);
 
       if (movie) {
-        const imageBuffer = req.file.buffer;
-        const customFilename = '';
+          const imageBuffer = req.file.buffer;
+          const customFilename = '';
 
-        const stream = cloudinary.uploader.upload_stream({ resource_type: 'image', public_id: customFilename }, async (error, result) => {
-          if (error) {
-            console.error('Error en Cloudinary:', error);
-          } else {
-            // Actualizar la imagen en la base de datos
-            movie.nombre = req.body.nombre;
-            movie.resumen = req.body.resumen;
-            movie.fecha_estreno = req.body.fecha_estreno;
-            movie.calificacion = req.body.calificacion;
-            movie.video = req.body.video;
-            movie.subidoPor = req.body.usuario;
-            movie.genero = req.body.genero;
-            movie.duracion = req.body.duracion;
-            movie.imagen1 = result.secure_url || movie.imagen1;
-            const generoFilm = await db.generoFilm.findOne({ where: { id_productoFilm: movie.id } });
+          const stream = cloudinary.uploader.upload_stream({ resource_type: 'image', public_id: customFilename }, async (error, result) => {
+              if (error) {
+                  console.error('Error en Cloudinary:', error);
+              } else {
+                  // Actualizar la imagen en la base de datos
+                  movie.nombre = req.body.nombre;
+                  movie.resumen = req.body.resumen;
+                  movie.fecha_estreno = req.body.fecha_estreno;
+                  movie.calificacion = req.body.calificacion;
+                  movie.video = req.body.video;
+                  movie.subidoPor = req.body.usuario;
+                  movie.duracion = req.body.duracion;
+                  movie.imagen1 = result.secure_url || movie.imagen1;
 
-            if (generoFilm) {
-              // Si ya existe una asociación, actualizar el género
-              generoFilm.id_genero = req.body.genero;
-              await generoFilm.save();
-            } else {
-              // Si no existe una asociación, crear una nueva
-              await db.generoFilm.create({
-                id_productoFilm: movie.id,
-                id_genero: req.body.genero
-              });
-            }
-            
-            await movie.save();
-  
+                  // Actualizar o crear la asociación con el género
+                  const generoFilm = await db.generoFilm.findOne({ where: { id_productoFilm: movie.id } });
+                  if (generoFilm) {
+                      generoFilm.id_genero = req.body.genero;
+                      await generoFilm.save();
+                  } else {
+                      await db.generoFilm.create({
+                          id_productoFilm: movie.id,
+                          id_genero: req.body.genero
+                      });
+                  }
 
-            res.redirect("/");
-          }
-        });
+                  // Actualizar o crear la asociación con la plataforma
+                  const plataformaFilm = await db.plataformaFilm.findOne({ where: { id_productoFilm: movie.id } });
+                  if (plataformaFilm) {
+                      plataformaFilm.id_plataforma = req.body.plataforma;
+                      await plataformaFilm.save();
+                  } else {
+                      await db.plataformaFilm.create({
+                          id_productoFilm: movie.id,
+                          id_plataforma: req.body.plataforma
+                      });
+                  }
 
-        streamifier.createReadStream(imageBuffer).pipe(stream);
+                  // Actualizar o crear la asociación con el tipo
+                  const tipoFilm = await db.tipoFilm.findOne({ where: { id_productoFilm: movie.id } });
+                  if (tipoFilm) {
+                      tipoFilm.id_tipo = req.body.tipo;
+                      await tipoFilm.save();
+                  } else {
+                      await db.tipoFilm.create({
+                          id_productoFilm: movie.id,
+                          id_tipo: req.body.tipo
+                      });
+                  }
+
+                  await movie.save();
+
+                  res.redirect("/");
+              }
+          });
+
+          streamifier.createReadStream(imageBuffer).pipe(stream);
       } else {
-        res.send(`
-            <div style="text-align: center; padding-top:30px">
-            <h1>La película no se puede editar</h1>
-            <img style="width:40%;" src="/img/error-critico.jpg">
-            </div>
-            `);
+          res.send(`
+              <div style="text-align: center; padding-top:30px">
+              <h1>La película no se puede editar</h1>
+              <img style="width:40%;" src="/img/error-critico.jpg">
+              </div>
+              `);
       }
-    } catch (error) {
+  } catch (error) {
       console.error('Error en postActualizarFilm:', error);
       res.render('error', { message: 'Error al actualizar la película' });
-    }
-  },
+  }
+},
+
 
   /* proceso de borrado */
   delete: async (req, res) => {
@@ -276,7 +342,17 @@ const controlador = {
             where: { id_productoFilm: idPelicula },
         });
 
-        // Eliminar la película después de eliminar las calificaciones y géneros
+        // Buscar y eliminar las asociaciones con tipos
+        await db.tipoFilm.destroy({
+            where: { id_productoFilm: idPelicula },
+        });
+
+        // Buscar y eliminar las asociaciones con plataformas
+        await db.plataformaFilm.destroy({
+            where: { id_productoFilm: idPelicula },
+        });
+
+        // Eliminar la película después de eliminar todas las asociaciones
         await pelicula.destroy();
 
         res.redirect("/");
@@ -293,22 +369,27 @@ const controlador = {
   estrenos: async (req, res) => {
     try {
       // Consulta para encontrar películas con nombres específicos.
-      const estrenos = await db.productoFilm.findAll(
-
-        {
-          limit: 13,
-          order: [['fecha_estreno', 'DESC']] // Ordenar por fecha de estreno en orden descendente.
-        })
-
+      const estrenos = await db.productoFilm.findAll({
+        include: [
+          {
+            association: 'plataforma',
+            where: { nombre: 'Cine' } // Reemplaza con el nombre real de la plataforma
+          },
+          {
+            association: 'tipo',
+            where: { nombre: 'En cartelera' } // Reemplaza con el nombre real del tipo
+          }
+        ]
+      });
+  
       // Renderizar la vista y los resultados a la plantilla.
       return res.render("movies/estrenos", { estrenos: estrenos });
-      //res.send(estrenos)
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   },
 
-  /*detalle de los estrenos*/
+
   /*detalle de los estrenos*/
 detalleEstrenos: async (req, res) => {
   try {
@@ -351,9 +432,7 @@ obtenerComent: async (req, res, pelicula) => {
     res.status(500).send('Error interno del servidor');
   }
 },
-
-
-  
+ 
 
 
 
@@ -385,19 +464,24 @@ obtenerComent: async (req, res, pelicula) => {
   },
 
 
-  /* peliculas noticias*/
   noticia: (req, res) => {
     db.productoFilm.findAll({
-      where: {
-        nombre: {
-          [Op.or]: ["The Flash", "Barbie", "La sirenita", "Transformers: el despertar de las bestias", "Rapidos y Furiosos x"]
-        }
-      },
-      order: [['fecha_estreno', 'ASC']], // Ordenar por fecha de estreno en orden ascendente
-      include: [{ association: "genero" }, { association: "actor" }]
+        include: [
+            { association: 'plataforma' },
+            {
+                association: 'tipo',
+                where: { nombre: 'Noticia' } // Reemplaza con el nombre real del tipo
+            },
+            { association: "genero" },
+            { association: "actor" }
+        ],
+        order: [['fecha_creacion', 'DESC']] // Añade esta línea para ordenar por fecha de creación
     })
       .then(function (noticias) {
         return res.render("movies/noticias", { noticias: noticias });
+      })
+      .catch(function (error) {
+        console.log(error);
       });
   },
 
@@ -409,24 +493,7 @@ obtenerComent: async (req, res, pelicula) => {
         res.render("movies/detalleNoti", { noticia: noticia })
       })
   },
-  //para finalizarlo  en un futuro proximo Emi
-  /* peliculas 2023
-  peliculas2023: (req, res) => {
-
-    db.productoFilm.findAll({
-      where: {
-        nombre: {
-          [Op.or]: ["Super Mario Bros", "John Wick: Capítulo 4", "Blondi", "Boogeyman: Tu miedo es real"]
-        }
-      },
-      order: [['fecha_estreno', 'ASC']], // Ordenar por fecha de estreno en orden ascendente
-      include: [{ association: "genero" }, { association: "actor" }, { association: "director" }, { association: "guionista" }, { association: "productora" }]
-    })
-      .then(function (peliculas) {
-        return res.render("movies/peliculas2023", { peliculas: peliculas });
-      });
-
-  },*/
+  
 
   /* noticias de peliculas slide principal*/
   detalleNoticia: (req, res) => {
@@ -439,73 +506,502 @@ obtenerComent: async (req, res, pelicula) => {
   },
 
 
+/////////////////////////////////series plataforma //////////////////////////////////////
 
-  aspromonte: (req, res) => {
-    res.render(path.resolve(__dirname, '../views/movies/estrenos/aspromonte.ejs'))
-  },
 
-  blondi: (req, res) => {
-    res.render(path.resolve(__dirname, '../views/movies/estrenos/blondi.ejs'))
-  },
+//serie netflix
 
-  boogeyman: (req, res) => {
-    res.render(path.resolve(__dirname, '../views/movies/estrenos/boogeyman.ejs'))
-  },
+seriesNetflix: (req, res) => {
+  db.productoFilm.findAll({
+    where: {},
+    include: [
+      {
+        association: 'plataforma',
+        where: { nombre: 'Netflix' } // Reemplaza con el nombre real de la plataforma
+      },
+      {
+        association: 'tipo',
+        where: { nombre: 'Serie' } // Reemplaza con el nombre real del tipo
+      }
+    ],
+    order: [['fecha_creacion', 'DESC']] // Agregué la coma aquí
+  })
+  
+    .then(function (seriesNetflix) {
+      return res.render('series/netflix', { seriesNetflix: seriesNetflix });
+    })
+    .catch(function (error) {
+      console.error('Error en la consulta:', error);
+      res.status(500).send('Internal Server Error');
+    });
+},
 
-  elementos: (req, res) => {
-    res.render(path.resolve(__dirname, '../views/movies/estrenos/elementos.ejs'))
-  },
+/*Detalle de las netflix*/
+serieNetflix: (req, res) => {
+  const serieId = req.params.id;
 
-  maremoto: (req, res) => {
-    res.render(path.resolve(__dirname, '../views/movies/estrenos/maremoto.ejs'))
-  },
+  db.productoFilm.findByPk(serieId, { include: [{ association: "genero" }, { association: "actor" }, { association: "guionista" }, { association: "director" }] })
+    .then(function (serieNetflix) {
+      res.render("series/netflixDetalle", { serieNetflix: serieNetflix })
+    })
+    .catch(function (error) {
+      console.error('Error al obtener el detalle de la serie:', error);
+      res.status(500).send('Internal Server Error');
+    });
+},
 
-  misantropo: (req, res) => {
-    res.render(path.resolve(__dirname, '../views/movies/estrenos/misantropo.ejs'))
-  },
+//serie PrimeVideo
+seriesPrimeVideo: (req, res) => {
+  
+  db.productoFilm.findAll({
+    where: {},
+    include:[
+      {
+        association: 'plataforma',
+        where: { nombre: 'Prime Video' } // Reemplaza con el nombre real de la plataforma
+      },
+      {
+        association: 'tipo',
+        where: { nombre: 'Serie' } // Reemplaza con el nombre real del tipo
+      }
+    ],
+    order: [['fecha_creacion', 'DESC']]
+  })
+    .then(function (seriesPrimeVideo) {
+      return res.render('series/PrimeVideo', { seriesPrimeVideo: seriesPrimeVideo });
+    })
+    .catch(function (error) {
+      console.error('Error en la consulta:', error);
+      res.status(500).send('Internal Server Error');
+    });
+},
 
-  /* rutas carpetas recomendacionesDeSeries*/
-  recomendacionesSerieNetflix: (req, res) => {
-    res.render(path.resolve(__dirname, '../views/movies/recomendacionesDeSeries/netflixtop.ejs'))
-  },
-  recomendacionesSerieAmazon: (req, res) => {
-    res.render(path.resolve(__dirname, '../views/movies/recomendacionesDeSeries/amazontop.ejs'))
-  },
-  recomendacionesSerisDisney: (req, res) => {
-    res.render(path.resolve(__dirname, '../views/movies/recomendacionesDeSeries/disneytop.ejs'))
-  },
+/*Detalle de las PrimeVideo*/
+seriePrimeVideo: (req, res) => {
+  const serieId = req.params.id;
 
-  /* rutas carpetas top NETFLIX*/
-  Top1: (req, res) => {
-    res.render(path.resolve(__dirname, '../views/movies/top/top1netflix.ejs'))
-  },
-  Top2: (req, res) => {
-    res.render(path.resolve(__dirname, '../views/movies/top/top2netflix.ejs'))
-  },
-  Top3: (req, res) => {
-    res.render(path.resolve(__dirname, '../views/movies/top/top3netflix.ejs'))
-  },
-  /* rutas carpetas top amazon*/
-  Topa1: (req, res) => {
-    res.render(path.resolve(__dirname, '../views/movies/top/top1amazon.ejs'))
-  },
-  Topa2: (req, res) => {
-    res.render(path.resolve(__dirname, '../views/movies/top/top2amazon.ejs'))
-  },
-  Topa3: (req, res) => {
-    res.render(path.resolve(__dirname, '../views/movies/top/top3amazon.ejs'))
-  },
+  db.productoFilm.findByPk(serieId, { include: [{ association: "genero" }, { association: "actor" }, { association: "guionista" }, { association: "director" }] })
+    .then(function (seriePrimeVideo) {
+      res.render("series/PrimeVideoDetalle", { seriePrimeVideo: seriePrimeVideo })
+    })
+    .catch(function (error) {
+      console.error('Error al obtener el detalle de la serie:', error);
+      res.status(500).send('Internal Server Error');
+    });
+},
 
-  /* rutas carpetas top DISNEY*/
-  Top1D: (req, res) => {
-    res.render(path.resolve(__dirname, '../views/movies/top/top1disney+.ejs'))
-  },
-  Top2D: (req, res) => {
-    res.render(path.resolve(__dirname, '../views/movies/top/top2disney.ejs'))
-  },
-  Top3D: (req, res) => {
-    res.render(path.resolve(__dirname, '../views/movies/top/top3disney.ejs'))
-  },
+
+//serie Disney+
+seriesDisneyPlus: (req, res) => {
+  
+  db.productoFilm.findAll({
+    where: {},
+    include:[
+      {
+        association: 'plataforma',
+        where: { nombre: 'Disney Plus' } // Reemplaza con el nombre real de la plataforma
+      },
+      {
+        association: 'tipo',
+        where: { nombre: 'Serie' } // Reemplaza con el nombre real del tipo
+      }
+    ],
+    order: [['fecha_creacion', 'DESC']]
+  })
+    .then(function (seriesDisneyPlus) {
+      return res.render('series/DisneyPlus', { seriesDisneyPlus: seriesDisneyPlus });
+    })
+    .catch(function (error) {
+      console.error('Error en la consulta:', error);
+      res.status(500).send('Internal Server Error');
+    });
+},
+
+/*Detalle de las DisneyPlus*/
+serieDisneyPlus: (req, res) => {
+  const serieId = req.params.id;
+
+  db.productoFilm.findByPk(serieId, { include: [{ association: "genero" }, { association: "actor" }, { association: "guionista" }, { association: "director" }] })
+    .then(function (serieDisneyPlus) {
+      res.render("series/DisneyPlusDetalle", { serieDisneyPlus: serieDisneyPlus })
+    })
+    .catch(function (error) {
+      console.error('Error al obtener el detalle de la serie:', error);
+      res.status(500).send('Internal Server Error');
+    });
+},
+
+
+
+//serie HboMax
+seriesHboMax: (req, res) => {
+  
+  db.productoFilm.findAll({
+    where: {},
+    include:[
+      {
+        association: 'plataforma',
+        where: { nombre: 'Hbo Max' } // Reemplaza con el nombre real de la plataforma
+      },
+      {
+        association: 'tipo',
+        where: { nombre: 'Serie' } // Reemplaza con el nombre real del tipo
+      }
+    ],
+    order: [['fecha_creacion', 'DESC']]
+  })
+    .then(function (seriesHboMax) {
+      return res.render('series/HboMax', { seriesHboMax: seriesHboMax });
+    })
+    .catch(function (error) {
+      console.error('Error en la consulta:', error);
+      res.status(500).send('Internal Server Error');
+    });
+},
+
+/*Detalle de las HboMax*/
+serieHboMax: (req, res) => {
+  const serieId = req.params.id;
+
+  db.productoFilm.findByPk(serieId, { include: [{ association: "genero" }, { association: "actor" }, { association: "guionista" }, { association: "director" }] })
+    .then(function (serieHboMax) {
+      res.render("series/HboMaxDetalle", { serieHboMax: serieHboMax })
+    })
+    .catch(function (error) {
+      console.error('Error al obtener el detalle de la serie:', error);
+      res.status(500).send('Internal Server Error');
+    });
+},
+
+
+//serie ParamountPlus
+seriesParamountPlus: (req, res) => {
+  
+  db.productoFilm.findAll({
+    where: {},
+    include:[
+      {
+        association: 'plataforma',
+        where: { nombre: 'Paramount Plus' } // Reemplaza con el nombre real de la plataforma
+      },
+      {
+        association: 'tipo',
+        where: { nombre: 'Serie' } // Reemplaza con el nombre real del tipo
+      }
+    ],
+    order: [['fecha_creacion', 'DESC']]
+  })
+    .then(function (seriesParamountPlus) {
+      return res.render('series/ParamountPlus', { seriesParamountPlus: seriesParamountPlus });
+    })
+    .catch(function (error) {
+      console.error('Error en la consulta:', error);
+      res.status(500).send('Internal Server Error');
+    });
+},
+
+/*Detalle de las ParamountPlus*/
+serieParamountPlus: (req, res) => {
+  const serieId = req.params.id;
+
+  db.productoFilm.findByPk(serieId, { include: [{ association: "genero" }, { association: "actor" }, { association: "guionista" }, { association: "director" }] })
+    .then(function (serieParamountPlus) {
+      res.render("series/ParamountPlusDetalle", { serieParamountPlus: serieParamountPlus })
+    })
+    .catch(function (error) {
+      console.error('Error al obtener el detalle de la serie:', error);
+      res.status(500).send('Internal Server Error');
+    });
+},
+
+//serie StarPlus
+seriesStarPlus: (req, res) => {
+  
+  db.productoFilm.findAll({
+    where: {},
+    include:[
+      {
+        association: 'plataforma',
+        where: { nombre: 'Star Plus' } // Reemplaza con el nombre real de la plataforma
+      },
+      {
+        association: 'tipo',
+        where: { nombre: 'Serie' } // Reemplaza con el nombre real del tipo
+      }
+    ],
+    order: [['fecha_creacion', 'DESC']]
+
+  })
+    .then(function (seriesStarPlus) {
+      return res.render('series/StarPlus', { seriesStarPlus: seriesStarPlus });
+    })
+    .catch(function (error) {
+      console.error('Error en la consulta:', error);
+      res.status(500).send('Internal Server Error');
+    });
+},
+
+/*Detalle de las StarPlus*/
+serieStarPlus: (req, res) => {
+  const serieId = req.params.id;
+
+  db.productoFilm.findByPk(serieId, { include: [{ association: "genero" }, { association: "actor" }, { association: "guionista" }, { association: "director" }] })
+    .then(function (serieStarPlus) {
+      res.render("series/StarPlusDetalle", { serieStarPlus: serieStarPlus })
+    })
+    .catch(function (error) {
+      console.error('Error al obtener el detalle de la serie:', error);
+      res.status(500).send('Internal Server Error');
+    });
+},
+
+/////////////////////////////////peliculas plataforma //////////////////////////////////////
+
+//pelicula netflix
+
+peliculasNetflix: (req, res) => {
+  
+  db.productoFilm.findAll({
+    where: {},
+    include:[
+      {
+        association: 'plataforma',
+        where: { nombre: 'Netflix' } // Reemplaza con el nombre real de la plataforma
+      },
+      {
+        association: 'tipo',
+        where: { nombre: 'Película' } // Reemplaza con el nombre real del tipo
+      }
+    ],
+    order: [['fecha_creacion', 'DESC']]
+  })
+    .then(function (peliculasNetflix) {
+      return res.render('peliculas/peliculanetflix', { peliculasNetflix: peliculasNetflix });
+    })
+    .catch(function (error) {
+      console.error('Error en la consulta:', error);
+      res.status(500).send('Internal Server Error');
+    });
+},
+
+/*Detalle de las pelicula netflix*/
+peliculaNetflix: (req, res) => {
+  const peliculaId = req.params.id;
+
+  db.productoFilm.findByPk(peliculaId, { include: [{ association: "genero" }, { association: "actor" }, { association: "guionista" }, { association: "director" }] })
+    .then(function (peliculaNetflix) {
+      res.render("peliculas/PeliculanetflixDetalle", { peliculaNetflix: peliculaNetflix })
+    })
+    .catch(function (error) {
+      console.error('Error al obtener el detalle de la pelicula:', error);
+      res.status(500).send('Internal Server Error');
+    });
+},
+
+//pelicula PrimeVideo
+peliculasPrimeVideo: (req, res) => {
+  
+  db.productoFilm.findAll({
+    where: {},
+    include:[
+      {
+        association: 'plataforma',
+        where: { nombre: 'Prime Video' } // Reemplaza con el nombre real de la plataforma
+      },
+      {
+        association: 'tipo',
+        where: { nombre: 'Película' } // Reemplaza con el nombre real del tipo
+      }
+    ],
+    order: [['fecha_creacion', 'DESC']]
+  })
+    .then(function (peliculasPrimeVideo) {
+      return res.render('peliculas/peliculaPrimeVideo', { peliculasPrimeVideo: peliculasPrimeVideo });
+    })
+    .catch(function (error) {
+      console.error('Error en la consulta:', error);
+      res.status(500).send('Internal Server Error');
+    });
+},
+
+/*Detalle de las pelicula PrimeVideo*/
+peliculaPrimeVideo: (req, res) => {
+  const peliculaId = req.params.id;
+
+  db.productoFilm.findByPk(peliculaId, { include: [{ association: "genero" }, { association: "actor" }, { association: "guionista" }, { association: "director" }] })
+    .then(function (peliculaPrimeVideo) {
+      res.render("peliculas/peliculaPrimeVideoDetalle", { peliculaPrimeVideo: peliculaPrimeVideo })
+    })
+    .catch(function (error) {
+      console.error('Error al obtener el detalle de la pelicula:', error);
+      res.status(500).send('Internal Server Error');
+    });
+},
+
+
+//pelicula Disney+
+peliculasDisneyPlus: (req, res) => {
+  
+  db.productoFilm.findAll({
+    where: {},
+    include:[
+      {
+        association: 'plataforma',
+        where: { nombre: 'Disney Plus' } // Reemplaza con el nombre real de la plataforma
+      },
+      {
+        association: 'tipo',
+        where: { nombre: 'Película' } // Reemplaza con el nombre real del tipo
+      }
+    ],
+    order: [['fecha_creacion', 'DESC']]
+  })
+    .then(function (peliculasDisneyPlus) {
+      return res.render('peliculas/peliculaDisneyPlus', { peliculasDisneyPlus: peliculasDisneyPlus });
+    })
+    .catch(function (error) {
+      console.error('Error en la consulta:', error);
+      res.status(500).send('Internal Server Error');
+    });
+},
+
+/*Detalle de las pelicula DisneyPlus*/
+peliculaDisneyPlus: (req, res) => {
+  const peliculaId = req.params.id;
+
+  db.productoFilm.findByPk(peliculaId, { include: [{ association: "genero" }, { association: "actor" }, { association: "guionista" }, { association: "director" }] })
+    .then(function (peliculaDisneyPlus) {
+      res.render("peliculas/peliculaDisneyPlusDetalle", { peliculaDisneyPlus: peliculaDisneyPlus })
+    })
+    .catch(function (error) {
+      console.error('Error al obtener el detalle de la pelicula:', error);
+      res.status(500).send('Internal Server Error');
+    });
+},
+
+
+
+//pelicula HboMax
+peliculasHboMax: (req, res) => {
+  
+  db.productoFilm.findAll({
+    where: {},
+    include:[
+      {
+        association: 'plataforma',
+        where: { nombre: 'Hbo Max' } // Reemplaza con el nombre real de la plataforma
+      },
+      {
+        association: 'tipo',
+        where: { nombre: 'Película' } // Reemplaza con el nombre real del tipo
+      }
+    ],
+    order: [['fecha_creacion', 'DESC']]
+  })
+    .then(function (peliculasHboMax) {
+      return res.render('peliculas/peliculaHboMax', { peliculasHboMax: peliculasHboMax });
+    })
+    .catch(function (error) {
+      console.error('Error en la consulta:', error);
+      res.status(500).send('Internal Server Error');
+    });
+},
+
+/*Detalle de las pelicula HboMax*/
+peliculaHboMax: (req, res) => {
+  const peliculaId = req.params.id;
+
+  db.productoFilm.findByPk(peliculaId, { include: [{ association: "genero" }, { association: "actor" }, { association: "guionista" }, { association: "director" }] })
+    .then(function (peliculaHboMax) {
+      res.render("peliculas/peliculaHboMaxDetalle", { peliculaHboMax: peliculaHboMax })
+    })
+    .catch(function (error) {
+      console.error('Error al obtener el detalle de la pelicula:', error);
+      res.status(500).send('Internal Server Error');
+    });
+},
+
+
+//pelicula ParamountPlus
+peliculasParamountPlus: (req, res) => {
+  
+  db.productoFilm.findAll({
+    where: {},
+    include:[
+      {
+        association: 'plataforma',
+        where: { nombre: 'Paramount Plus' } // Reemplaza con el nombre real de la plataforma
+      },
+      {
+        association: 'tipo',
+        where: { nombre: 'Película' } // Reemplaza con el nombre real del tipo
+      }
+    ],
+    order: [['fecha_creacion', 'DESC']]
+  })
+    .then(function (peliculasParamountPlus) {
+      return res.render('peliculas/peliculaParamountPlus', { peliculasParamountPlus: peliculasParamountPlus });
+    })
+    .catch(function (error) {
+      console.error('Error en la consulta:', error);
+      res.status(500).send('Internal Server Error');
+    });
+},
+
+/*Detalle de las pelicula ParamountPlus*/
+peliculaParamountPlus: (req, res) => {
+  const peliculaId = req.params.id;
+
+  db.productoFilm.findByPk(peliculaId, { include: [{ association: "genero" }, { association: "actor" }, { association: "guionista" }, { association: "director" }] })
+    .then(function (peliculaParamountPlus) {
+      res.render("peliculas/peliculaParamountPlusDetalle", { peliculaParamountPlus: peliculaParamountPlus })
+    })
+    .catch(function (error) {
+      console.error('Error al obtener el detalle de la pelicula:', error);
+      res.status(500).send('Internal Server Error');
+    });
+},
+
+//pelicula StarPlus
+peliculasStarPlus: (req, res) => {
+  
+  db.productoFilm.findAll({
+    where: {},
+    include:[
+      {
+        association: 'plataforma',
+        where: { nombre: 'Star Plus' } // Reemplaza con el nombre real de la plataforma
+      },
+      {
+        association: 'tipo',
+        where: { nombre: 'Película' } // Reemplaza con el nombre real del tipo
+      }
+    ],
+    order: [['fecha_creacion', 'DESC']]
+  })
+    .then(function (peliculasStarPlus) {
+      return res.render('peliculas/peliculaStarPlus', { peliculasStarPlus: peliculasStarPlus });
+    })
+    .catch(function (error) {
+      console.error('Error en la consulta:', error);
+      res.status(500).send('Internal Server Error');
+    });
+},
+
+/*Detalle de las pelicula StarPlus*/
+peliculaStarPlus: (req, res) => {
+  const peliculaId = req.params.id;
+
+  db.productoFilm.findByPk(peliculaId, { include: [{ association: "genero" }, { association: "actor" }, { association: "guionista" }, { association: "director" }] })
+    .then(function (peliculaStarPlus) {
+      res.render("peliculas/peliculaStarPlusDetalle", { peliculaStarPlus: peliculaStarPlus })
+    })
+    .catch(function (error) {
+      console.error('Error al obtener el detalle de la pelicula:', error);
+      res.status(500).send('Internal Server Error');
+    });
+},
+
 
 
   ///////////////////////////////APIS/////////////////////////////////////////

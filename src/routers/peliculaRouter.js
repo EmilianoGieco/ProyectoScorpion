@@ -66,31 +66,51 @@ router.get('/noticias', peliculaController.noticia);
 //peliculas noticias detalle
 router.get('/noticias/detalle/:id', peliculaController.detalleNoti);
 
-/*peliculas del archivo peliculas2023
-router.get('/peliculas2023', peliculaController.peliculas2023 );*/
-
 //rutas carpetas las 5 mejores peliculas (slide)
 router.get("/detalleNoticia/:idN", peliculaController.detalleNoticia);
 
-//rutas carpetas recomendacionesDeSeries (enrutar como corresponde)
-router.get('/recomendacionesSerieNetflix', peliculaController.recomendacionesSerieNetflix);
-router.get('/recomendacionesSerieAmazon', peliculaController.recomendacionesSerieAmazon);
-router.get('/recomendacionesSerisDisney', peliculaController.recomendacionesSerisDisney);
+//rutas carpetas Series (enrutar como corresponde)
+router.get('/seriesNetflix', peliculaController.seriesNetflix);
+router.get('/seriesNetflix/detalle/:id', peliculaController.serieNetflix);
 
-//rutas carpetas top NETFLIX (enrutar como corresponde)
-router.get('/Top1', peliculaController.Top1);
-router.get('/Top2', peliculaController.Top2);
-router.get('/Top3', peliculaController.Top3);
+router.get('/seriesPrimeVideo', peliculaController.seriesPrimeVideo);
+router.get('/seriesPrimeVideo/detalle/:id', peliculaController.seriePrimeVideo);
 
-//rutas carpetas top amazon (enrutar como corresponde)
-router.get('/Topa1', peliculaController.Topa1);
-router.get('/Topa2', peliculaController.Topa2);
-router.get('/Topa3', peliculaController.Topa3);
+router.get('/seriesDisneyPlus', peliculaController.seriesDisneyPlus);
+router.get('/seriesDisneyPlus/detalle/:id', peliculaController.serieDisneyPlus);
 
-//rutas carpetas top DISNEY (enrutar como corresponde)
-router.get('/Top1D', peliculaController.Top1D);
-router.get('/Top2D', peliculaController.Top2D);
-router.get('/Top3D', peliculaController.Top3D);
+router.get('/seriesHboMax', peliculaController.seriesHboMax);
+router.get('/seriesHboMax/detalle/:id', peliculaController.serieHboMax);
+
+router.get('/seriesParamountPlus', peliculaController.seriesParamountPlus);
+router.get('/seriesParamountPlus/detalle/:id', peliculaController.serieParamountPlus);
+
+router.get('/seriesStarPlus', peliculaController.seriesStarPlus);
+router.get('/seriesStarPlus/detalle/:id', peliculaController.serieStarPlus);
+
+
+//rutas carpetas pelicula (enrutar como corresponde)
+
+router.get('/peliculasNetflix', peliculaController.peliculasNetflix);
+router.get('/peliculasNetflix/detalle/:id', peliculaController.peliculaNetflix);
+
+router.get('/peliculasPrimeVideo', peliculaController.peliculasPrimeVideo);
+router.get('/peliculasPrimeVideo/detalle/:id', peliculaController.peliculaPrimeVideo);
+
+router.get('/peliculasDisneyPlus', peliculaController.peliculasDisneyPlus);
+router.get('/peliculasDisneyPlus/detalle/:id', peliculaController.peliculaDisneyPlus);
+
+router.get('/peliculasHboMax', peliculaController.peliculasHboMax);
+router.get('/peliculasHboMax/detalle/:id', peliculaController.peliculaHboMax);
+
+router.get('/peliculasParamountPlus', peliculaController.peliculasParamountPlus);
+router.get('/peliculasParamountPlus/detalle/:id', peliculaController.peliculaParamountPlus);
+
+router.get('/peliculasStarPlus', peliculaController.peliculasStarPlus);
+router.get('/peliculasStarPlus/detalle/:id', peliculaController.peliculaStarPlus);
+
+
+
 
 ///////////////////////////////APIS/////////////////////////////////////////
 

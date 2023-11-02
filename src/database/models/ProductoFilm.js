@@ -57,11 +57,8 @@ function productoFilm(sequelize, Datatypes) {
         titulo2:
             { type: Datatypes.STRING(150) },
 
-        id_tipo:
-            { type: Datatypes.INTEGER },
-
-                                
-
+                                        
+           
     }
 
     // Timestamps
@@ -70,10 +67,12 @@ function productoFilm(sequelize, Datatypes) {
     const productoFilm = sequelize.define(alias, cols, config)
 
     productoFilm.associate = function (models) {
-        productoFilm.belongsTo(models.tipo, {
+        productoFilm.belongsToMany(models.tipo, {
             as: 'tipo',
-            foreignKey: "id_tipo"
-        })
+            through: 'tipoFilm',
+            foreignKey: 'id_productoFilm',
+            otherKey: 'id_tipo' // Cambiar a 'id_tipo' en lugar de 'id_tipo'
+        });
 
             productoFilm.hasMany(models.calificacion, {
                 as: 'calificacion',
@@ -93,6 +92,7 @@ function productoFilm(sequelize, Datatypes) {
                 foreignKey: 'id_productoFilm', // es el FK del modelo en el que estoy
                 otherKey: 'id_genero'// es el FK del otro modelo
             });
+            
         
             productoFilm.belongsToMany(models.productora, {
                 as: 'productora',

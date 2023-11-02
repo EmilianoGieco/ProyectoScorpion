@@ -48,6 +48,26 @@
                       <%=movie.fecha_estreno%>
                     </h6>
 
+                    <% if (movie.plataforma && movie.plataforma.length > 0) { %>
+                      <h6 class="card-title linea">plataforma:
+                        <%= movie.plataforma.map(plataforma => plataforma.nombre).join(', ') %>
+                      </h6>
+                    <% } else { %>
+                      <p class="card-title linea">plataforma: No especificado</p>
+                    <% } %>
+
+
+
+                    <% if (movie.tipo && movie.tipo.length > 0) { %>
+                      <h6 class="card-title linea">Tipo:
+                        <%= movie.tipo.map(tipo => tipo.nombre).join(', ') %>
+                      </h6>
+                    <% } else { %>
+                      <p class="card-title linea">Tipo: No especificado</p>
+                    <% } %>
+
+                                       
+
 
 
                    <!-- Detalle de la película -->

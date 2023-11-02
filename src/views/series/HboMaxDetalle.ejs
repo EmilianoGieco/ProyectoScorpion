@@ -8,13 +8,13 @@
             <!--MAIN-->
             <main>
                 <h1 class="titulo5">
-                    <%= noticia.titulo %>
+                    <%= serieHboMax.titulo %>
                 </h1>
 
     
 
                 <div class="contenedorPrincipal">
-                    <img src="<%= noticia.imagen1 %>" alt="<%= noticia.nombre %>" width="1000px" height="388px">
+                    <img src="<%= serieHboMax.imagen1 %>" alt="<%= serieHboMax.nombre %>" width="1000px" height="388px">
 
                     <div class="card mb-3 fondo" style="max-width: 1000px;">
                         <div>
@@ -22,28 +22,29 @@
                             <div class="card-body">
 
                                 <h5 class="bajada1">
-                                    <%= noticia.titulo2 %>
+                                    <%= serieHboMax.titulo2 %>
                                 </h5>
 
                                 <p class="card-text resumen">
-                                    <%=noticia.resumen%>
+                                    <%=serieHboMax.resumen%>
                                 </p>
 
 
-                                <div class="videodeyoutube"><iframe width="900" height="550" src="<%= noticia.video %>"
+                                <div class="videodeyoutube"><iframe width="900" height="550" src="<%= serieHboMax.video %>"
                                     title="YouTube video player" frameborder="0"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                     allowfullscreen></div> </iframe></div>
 
                                 <h6 class="card-title estreno">Fecha de estreno:
-                                    <%=noticia.fecha_estreno%>
+                                    <%=serieHboMax.fecha_estreno%>
                                 </h6>
 
                                 <h6 class="card-title estreno">Genero:
-                                    <%=noticia.genero[0].nombre%>
+                                    <%=serieHboMax.genero[0].nombre%>
                                 </h6>
 
                                 
+                                </h6>
 
                             </div>
                         </div>

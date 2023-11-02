@@ -43,6 +43,14 @@
             </div>
 
             <div class="col-md-4 mb-3">
+              <label class="titulo" for="descripcion">Fecha de creacion</label>
+              <input type="datetime-local" class="form-control" id="fecha_creacion" placeholder="fecha_creacion" name="fecha_creacion" required>
+              <div class="valid-feedback">
+                  ¡Se ve bien!
+              </div>
+          </div>
+
+            <div class="col-md-4 mb-3">
               <label class="titulo" for="descripcion">Duración (minutos)</label>
               <input type="text" class="form-control" id="duracion" placeholder="duración" name="duracion" required>
               <div class="valid-feedback">
@@ -73,6 +81,31 @@
               <%} %>
             </select>
           </div>
+
+          <div class="col-md-4 mb-3">
+            <label class="titulo" for="plataforma">Plataforma</label>
+            <select class="form-control" id="plataforma" name="plataforma" required>
+              <option selected disabled>selecciona plataforma</option>
+              <% for (let i=0; i<plataformas.length; i++) { %>
+                <option value="<%= plataformas[i].id %>">
+                  <%= plataformas[i].nombre %>
+                </option>
+              <% } %>
+            </select>
+          </div>
+           
+          <div class="col-md-4 mb-3">
+            <label class="titulo" for="tipo">Tipo</label>
+            <select class="form-control" id="tipo" name="tipo" required>
+                <option selected disabled>Selecciona tipo</option>
+                <% for (let i = 0; i < tipos.length; i++) { %>
+                    <option value="<%= tipos[i].id %>">
+                        <%= tipos[i].nombre %>
+                    </option>
+                <% } %>
+            </select>
+        </div>
+
           </div>
 
           <button class="btn btn-secondary boton" type="submit">Subir Película</button>

@@ -20,9 +20,11 @@ function tipo(sequelize, Datatypes) {
     const tipo = sequelize.define(alias, cols, config)
 
     tipo.associate = function (models) {
-        tipo.hasMany(models.productoFilm, {
+        tipo.belongsToMany(models.productoFilm, {
             as: 'productoFilm',
-            foreignKey: "id_tipo"
+            through: 'tipoFilm', // tabla intermedia
+            foreignKey: 'id_tipo', // es el FK del modelo en el que estoy
+            otherKey: 'id_productoFilm'// es el FK del otro modelo
         })
     }
 

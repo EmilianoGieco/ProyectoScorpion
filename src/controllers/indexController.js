@@ -12,7 +12,18 @@ const indexController = {
       // Consulta para obtener las películas más recientes
       const movie = await db.productoFilm.findAll({
         limit: 8,
-        order: [['fecha_estreno', 'DESC']] // Ordenar por fecha de estreno en orden descendente.
+      
+        // Agregar condiciones para filtrar por plataforma y tipo
+        include: [
+          {
+            association: 'plataforma',
+            where: { nombre: 'Cine' } // Reemplaza con el nombre real de la plataforma
+          },
+          {
+            association: 'tipo',
+            where: { nombre: 'En cartelera' } // Reemplaza con el nombre real del tipo
+          }
+        ]
       });
 
       // Consulta para encontrar películas con nombres específicos.
