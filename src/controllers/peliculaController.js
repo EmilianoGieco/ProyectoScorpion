@@ -256,6 +256,7 @@ postActualizarFilm: async function (req, res) {
                   movie.resumen = req.body.resumen;
                   movie.fecha_estreno = req.body.fecha_estreno;
                   movie.calificacion = req.body.calificacion;
+                  movie.fecha_creacion = req.body.fecha_creacion;
                   movie.video = req.body.video;
                   movie.subidoPor = req.body.usuario;
                   movie.duracion = req.body.duracion;
@@ -379,8 +380,9 @@ postActualizarFilm: async function (req, res) {
             association: 'tipo',
             where: { nombre: 'En cartelera' } // Reemplaza con el nombre real del tipo
           }
-        ]
-      });
+        ],
+        order: [['fecha_creacion', 'DESC']] // Agregué la coma aquí
+      })
   
       // Renderizar la vista y los resultados a la plantilla.
       return res.render("movies/estrenos", { estrenos: estrenos });
@@ -871,7 +873,7 @@ peliculaDisneyPlus: (req, res) => {
 
   db.productoFilm.findByPk(peliculaId, { include: [{ association: "genero" }, { association: "actor" }, { association: "guionista" }, { association: "director" }] })
     .then(function (peliculaDisneyPlus) {
-      res.render("peliculas/peliculaDisneyPlusDetalle", { peliculaDisneyPlus: peliculaDisneyPlus })
+      res.render("peliculas/peliculaDisneyPlusDetalle", { peliculaDisneyPlus: peliculaDisneyPlus, movie: peliculaDisneyPlus });
     })
     .catch(function (error) {
       console.error('Error al obtener el detalle de la pelicula:', error);

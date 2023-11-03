@@ -23,8 +23,9 @@ const indexController = {
             association: 'tipo',
             where: { nombre: 'En cartelera' } // Reemplaza con el nombre real del tipo
           }
-        ]
-      });
+        ],
+        order: [['fecha_creacion', 'DESC']] // Agregué la coma aquí
+      })
 
       // Consulta para encontrar películas con nombres específicos.
       const peliculasSlide = await db.productoFilm.findAll({

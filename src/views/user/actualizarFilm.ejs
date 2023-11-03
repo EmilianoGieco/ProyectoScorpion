@@ -1,111 +1,173 @@
 <html>
-    <!--HEAD-->
-    <%- include("../partials/headDetallePelicula") %>
-  
-      <body class="bg1">
-        <%- include("../partials/header") %>
+  <!-- HEAD -->
+  <%- include("../partials/headDetallePelicula") %>
 
-        <main class="container">
-          <form id="formu" action="/peliculas/actualizarFilm/<%= movie.id %>?_method=PUT" method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
-            <!-- Agregar el div para el mensaje de validación -->
-            
-                <div class="form-row">
-                  <div class="col-md-4 mb-3">
-                    <label class="tituloActualizacion" for="nombre">Titulo película</label>
-                    <input type="text" class="form-control" id="nombre" placeholder="nombre" name="nombre" required value="<%= movie.nombre %>">>
-                    <div class="valid-feedback">
-                      ¡Se ve bien!
-                    </div>
-                  </div>
-      
-                  <div  class="col-md-4 mb-3">
-                    <label class="tituloActualizacion" for="imagen1">Imagen</label>
-                    <input type="file" class="form-control" id="imagen1" placeholder="imagen" name="imagen" required value="<%= movie.imagen1 %>">>
-                    <div class="valid-feedback">
-                      ¡Se ve bien!
-                    </div>
-                  </div>
-      
-                  <div class="col-md-4 mb-3">
-                    <label class="tituloActualizacion" for="descripcion">Sinopsis</label>
-                    <input type="text" class="form-control" id="resumen" placeholder="resumen" name="resumen" required value="<%= movie.resumen %>">>
-                    <div class="valid-feedback">
-                      ¡Se ve bien!
-                    </div>
-                  </div>
-      
-                  <div class="col-md-4 mb-3">
-                    <label class="tituloActualizacion" for="descripcion">Fecha de estreno</label>
-                    <input type="date" class="form-control" id="fecha_estreno" placeholder="fecha_estreno"
-                      name="fecha_estreno" required value="<%= movie.fecha_estreno %>">>
-                    <div class="valid-feedback">
-                      ¡Se ve bien!
-                    </div>
-                  </div>
-      
-                  <div class="col-md-4 mb-3">
-                    <label class="tituloActualizacion" for="descripcion">Duración</label>
-                    <input type="text" class="form-control" id="duracion" placeholder="duración" name="duracion" required value="<%= movie.duracion %>">>
-                    <div class="valid-feedback">
-                      ¡Se ve bien!
-                    </div>
-                  </div>
-      
-                
-      
-                  <div class="col-md-4 mb-3">
-                    <label class="tituloActualizacion" for="video">Enlace de Video</label>
-                    <input type="text" class="form-control" id="video" placeholder="video" name="video" required value="<%= movie.video %>">>
-                    <div class="valid-feedback">
-                    </div>
-                  </div>
-                </div>
-      
-                
-      
-                <div class="col-md-4 mb-3">
-                  <label class="tituloActualizacion" for="inputGroupSelect01">Género</label>
-                  <select class="form-control" id="inputGroupSelect01" name="genero" required value="<%= movie.genero %>">>
-                    <option selected disabled>selecciona un género</option>
-                    <% for (let i=0; i<generos.length; i++) {%>
-                      <option value="<%=generos[i].id%>">
-                        <%=generos[i].nombre%>
-                      </option>
-                      <%} %>
-                  </select>
-                </div>
+  <body class="bg1">
+    <%- include("../partials/header") %>
 
-                <div class="col-md-4 mb-3">
-                  <label class="titulo" for="plataforma">Plataforma</label>
-                  <select class="form-control" id="plataforma" name="plataforma" required>
-                    <option selected disabled>selecciona plataforma</option>
-                    <% for (let i=0; i<plataformas.length; i++) { %>
-                      <option value="<%= plataformas[i].id %>">
-                        <%= plataformas[i].nombre %>
-                      </option>
-                    <% } %>
-                  </select>
-                </div>
-                 
-                <div class="col-md-4 mb-3">
-                  <label class="titulo" for="tipo">Tipo</label>
-                  <select class="form-control" id="tipo" name="tipo" required>
-                      <option selected disabled>Selecciona tipo</option>
-                      <% for (let i = 0; i < tipos.length; i++) { %>
-                          <option value="<%= tipos[i].id %>">
-                              <%= tipos[i].nombre %>
-                          </option>
-                      <% } %>
-                  </select>
-              </div>
+    <main class="container">
+      <form
+        id="formu"
+        action="/peliculas/actualizarFilm/<%= movie.id %>?_method=PUT"
+        method="POST"
+        class="needs-validation"
+        novalidate
+        enctype="multipart/form-data"
+      >
+        <!-- Agregar el div para el mensaje de validación -->
 
-                </div>
-                 
+        <div class="form-row">
+          <div class="col-md-4 mb-3">
+            <label class="tituloActualizacion" for="nombre">Titulo película</label>
+            <input
+              type="text"
+              class="form-control"
+              id="nombre"
+              placeholder="nombre"
+              name="nombre"
+              required
+              value="<%= movie.nombre %>"
+            />
+            <div class="valid-feedback">
+              ¡Se ve bien!
+            </div>
+          </div>
 
+          <div class="col-md-4 mb-3">
+            <label class="tituloActualizacion" for="imagen1">Imagen</label>
+            <input
+              type="file"
+              class="form-control"
+              id="imagen1"
+              placeholder="imagen"
+              name="imagen"
+              required
+            />
+            <div class="valid-feedback">
+              ¡Se ve bien!
+            </div>
+          </div>
 
-                <button class="btn btn-secondary boton" type="submit">Actualizar</button>
-              
-              </form>
+          <div class="col-md-4 mb-3">
+            <label class="tituloActualizacion" for="descripcion">Sinopsis</label>
+            <input
+              type="text"
+              class="form-control"
+              id="resumen"
+              placeholder="resumen"
+              name="resumen"
+              required
+              value="<%= movie.resumen %>"
+            />
+            <div class="valid-feedback">
+              ¡Se ve bien!
+            </div>
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label class="tituloActualizacion" for="descripcion">Fecha de estreno</label>
+            <input
+              type="date"
+              class="form-control"
+              id="fecha_estreno"
+              placeholder="fecha_estreno"
+              name="fecha_estreno"
+              required
+              value="<%= movie.fecha_estreno %>"
+            />
+            <div class="valid-feedback">
+              ¡Se ve bien!
+            </div>
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label class="titulo" for="descripcion">Fecha de creacion</label>
+            <input
+              type="datetime-local"
+              class="form-control"
+              id="fecha_creacion"
+              placeholder="fecha_creacion"
+              name="fecha_creacion"
+              required
+              value="<%= movie.fecha_creacion %>"
+            />
+            <div class="valid-feedback">
+              ¡Se ve bien!
+            </div>
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label class="tituloActualizacion" for="descripcion">Duración</label>
+            <input
+              type="text"
+              class="form-control"
+              id="duracion"
+              placeholder="duración"
+              name="duracion"
+              required
+              value="<%= movie.duracion %>"
+            />
+            <div class="valid-feedback">
+              ¡Se ve bien!
+            </div>
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label class="tituloActualizacion" for="video">Enlace de Video</label>
+            <input
+              type="text"
+              class="form-control"
+              id="video"
+              placeholder="video"
+              name="video"
+              required
+              value="<%= movie.video %>"
+            />
+            <div class="valid-feedback"></div>
+          </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+          <label class="tituloActualizacion" for="inputGroupSelect01">Género</label>
+          <select class="form-control" id="inputGroupSelect01" name="genero" required>
+            <option selected disabled>selecciona un género</option>
+            <% for (let i=0; i<generos.length; i++) { %>
+              <option
+                value="<%=generos[i].id%>"
+                <% if (generos[i].id === movie.genero) { %> selected <% } %>
+              >
+                <%=generos[i].nombre%>
+              </option>
+            <% } %>
+          </select>
+        </div>
+
+        <div class="col-md-4 mb-3">
+          <label class="titulo" for="plataforma">Plataforma</label>
+          <select class="form-control" id="plataforma" name="plataforma" required>
+            <option selected disabled>selecciona plataforma</option>
+            <% for (let i=0; i<plataformas.length; i++) { %>
+              <option value="<%= plataformas[i].id %>">
+                <%= plataformas[i].nombre %>
+              </option>
+            <% } %>
+          </select>
+        </div>
+
+        <div class="col-md-4 mb-3">
+          <label class="titulo" for="tipo">Tipo</label>
+          <select class="form-control" id="tipo" name="tipo" required>
+            <option selected disabled>Selecciona tipo</option>
+            <% for (let i = 0; i < tipos.length; i++) { %>
+              <option value="<%= tipos[i].id %>" <% if (tipos[i].id === movie.tipo) { %> selected <% } %>>
+                <%= tipos[i].nombre %>
+              </option>
+            <% } %>
+          </select>
+        </div>
+
+        <button class="btn btn-secondary boton" type="submit">Actualizar</button>
+      </form>
            
         </main>
         

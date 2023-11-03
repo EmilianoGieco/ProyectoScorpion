@@ -44,7 +44,17 @@
                                 </h6>
 
                                 
-                                </h6>
+                                <% if (locals.isLogged && locals.userLogged && locals.userLogged.administrador === 1) { %>
+                                    <div style="display: flex; gap: 20px;">
+                                      <a href="/peliculas/actualizarFilm/<%= movie.id %>"
+                                        class="btn btn-primary altura">Actualizar</a>
+          
+                                      <form id="eliminar" action="/peliculas/delete/<%= movie.id %>?_method=DELETE" method="POST">
+                                        <button type="submit" class="btn btn-primary br altura">Eliminar</button>
+                                      </form>
+          
+                                    </div>
+                                    <% } %>
 
                             </div>
                         </div>
